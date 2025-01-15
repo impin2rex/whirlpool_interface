@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use crate::serializer::{deserialize_u128_as_string, serialize_u128_as_string};
 use crate::*;
 use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::pubkey::Pubkey;
@@ -155,11 +157,32 @@ pub const POSITION_ACCOUNT_DISCM: [u8; 8] = [170, 188, 143, 228, 122, 64, 247, 2
 pub struct Position {
     pub whirlpool: Pubkey,
     pub position_mint: Pubkey,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub liquidity: u128,
     pub tick_lower_index: i32,
     pub tick_upper_index: i32,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub fee_growth_checkpoint_a: u128,
     pub fee_owed_a: u64,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub fee_growth_checkpoint_b: u128,
     pub fee_owed_b: u64,
     pub reward_infos: [PositionRewardInfo; 3],
@@ -276,16 +299,44 @@ pub struct Whirlpool {
     pub tick_spacing_seed: [u8; 2],
     pub fee_rate: u16,
     pub protocol_fee_rate: u16,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub liquidity: u128,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub sqrt_price: u128,
     pub tick_current_index: i32,
     pub protocol_fee_owed_a: u64,
     pub protocol_fee_owed_b: u64,
     pub token_mint_a: Pubkey,
     pub token_vault_a: Pubkey,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub fee_growth_global_a: u128,
     pub token_mint_b: Pubkey,
     pub token_vault_b: Pubkey,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub fee_growth_global_b: u128,
     pub reward_last_updated_timestamp: u64,
     pub reward_infos: [WhirlpoolRewardInfo; 3],

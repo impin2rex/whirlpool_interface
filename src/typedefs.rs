@@ -1,3 +1,8 @@
+#[cfg(feature = "serde")]
+use crate::serializer::{
+    deserialize_i128_as_string, deserialize_u128_as_string, serialize_i128_as_string,
+    serialize_u128_as_string,
+};
 use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::pubkey::Pubkey;
 #[derive(Default, Clone, Debug, BorshDeserialize, BorshSerialize, PartialEq)]
@@ -14,6 +19,13 @@ pub struct OpenPositionWithMetadataBumps {
 #[derive(Clone, Debug, BorshDeserialize, BorshSerialize, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct PositionRewardInfo {
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub growth_inside_checkpoint: u128,
     pub amount_owed: u64,
 }
@@ -21,9 +33,37 @@ pub struct PositionRewardInfo {
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Tick {
     pub initialized: bool,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_i128_as_string",
+            deserialize_with = "deserialize_i128_as_string"
+        )
+    )]
     pub liquidity_net: i128,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub liquidity_gross: u128,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub fee_growth_outside_a: u128,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub fee_growth_outside_b: u128,
     pub reward_growths_outside: [u128; 3],
 }
@@ -33,7 +73,21 @@ pub struct WhirlpoolRewardInfo {
     pub mint: Pubkey,
     pub vault: Pubkey,
     pub authority: Pubkey,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub emissions_per_second_x64: u128,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub growth_global_x64: u128,
 }
 #[derive(Default, Clone, Debug, BorshDeserialize, BorshSerialize, PartialEq)]

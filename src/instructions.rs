@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use crate::serializer::{deserialize_u128_as_string, serialize_u128_as_string};
 use crate::*;
 use borsh::{BorshDeserialize, BorshSerialize};
 use inflector::Inflector;
@@ -742,6 +744,13 @@ pub const INITIALIZE_POOL_IX_DISCM: [u8; 8] = [95, 180, 10, 172, 84, 174, 232, 4
 pub struct InitializePoolIxArgs {
     pub bumps: WhirlpoolBumps,
     pub tick_spacing: u16,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub initial_sqrt_price: u128,
 }
 #[derive(Clone, Debug, PartialEq)]
@@ -1685,6 +1694,13 @@ pub const SET_REWARD_EMISSIONS_IX_DISCM: [u8; 8] = [13, 197, 86, 168, 109, 176, 
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct SetRewardEmissionsIxArgs {
     pub reward_index: u8,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub emissions_per_second_x64: u128,
 }
 #[derive(Clone, Debug, PartialEq)]
@@ -2632,6 +2648,13 @@ pub const INCREASE_LIQUIDITY_IX_DISCM: [u8; 8] = [46, 156, 243, 118, 13, 205, 25
 #[derive(Default, BorshDeserialize, BorshSerialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct IncreaseLiquidityIxArgs {
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub liquidity_amount: u128,
     pub token_max_a: u64,
     pub token_max_b: u64,
@@ -2954,6 +2977,13 @@ pub const DECREASE_LIQUIDITY_IX_DISCM: [u8; 8] = [160, 38, 208, 111, 104, 91, 44
 #[derive(Default, BorshDeserialize, BorshSerialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct DecreaseLiquidityIxArgs {
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub liquidity_amount: u128,
     pub token_min_a: u64,
     pub token_min_b: u64,
@@ -4253,6 +4283,13 @@ pub const SWAP_IX_DISCM: [u8; 8] = [248, 198, 158, 145, 225, 117, 135, 200];
 pub struct SwapIxArgs {
     pub amount: u64,
     pub other_amount_threshold: u64,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub sqrt_price_limit: u128,
     pub amount_specified_is_input: bool,
     pub a_to_b: bool,
@@ -6758,7 +6795,21 @@ pub struct TwoHopSwapIxArgs {
     pub amount_specified_is_input: bool,
     pub a_to_b_one: bool,
     pub a_to_b_two: bool,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub sqrt_price_limit_one: u128,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub sqrt_price_limit_two: u128,
 }
 #[derive(Clone, Debug, PartialEq)]
@@ -9467,6 +9518,13 @@ pub const DECREASE_LIQUIDITY_V2_IX_DISCM: [u8; 8] = [58, 127, 188, 62, 79, 82, 1
 #[derive(Default, BorshDeserialize, BorshSerialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct DecreaseLiquidityV2IxArgs {
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub liquidity_amount: u128,
     pub token_min_a: u64,
     pub token_min_b: u64,
@@ -9838,6 +9896,13 @@ pub const INCREASE_LIQUIDITY_V2_IX_DISCM: [u8; 8] = [133, 29, 89, 223, 69, 238, 
 #[derive(Default, BorshDeserialize, BorshSerialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct IncreaseLiquidityV2IxArgs {
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub liquidity_amount: u128,
     pub token_max_a: u64,
     pub token_max_b: u64,
@@ -10199,6 +10264,13 @@ pub const INITIALIZE_POOL_V2_IX_DISCM: [u8; 8] = [207, 45, 87, 242, 27, 63, 204,
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct InitializePoolV2IxArgs {
     pub tick_spacing: u16,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub initial_sqrt_price: u128,
 }
 #[derive(Clone, Debug, PartialEq)]
@@ -10711,6 +10783,13 @@ pub const SET_REWARD_EMISSIONS_V2_IX_DISCM: [u8; 8] = [114, 228, 72, 32, 193, 48
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct SetRewardEmissionsV2IxArgs {
     pub reward_index: u8,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub emissions_per_second_x64: u128,
 }
 #[derive(Clone, Debug, PartialEq)]
@@ -11049,6 +11128,13 @@ pub const SWAP_V2_IX_DISCM: [u8; 8] = [43, 4, 237, 11, 26, 201, 30, 98];
 pub struct SwapV2IxArgs {
     pub amount: u64,
     pub other_amount_threshold: u64,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub sqrt_price_limit: u128,
     pub amount_specified_is_input: bool,
     pub a_to_b: bool,
@@ -11516,7 +11602,21 @@ pub struct TwoHopSwapV2IxArgs {
     pub amount_specified_is_input: bool,
     pub a_to_b_one: bool,
     pub a_to_b_two: bool,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub sqrt_price_limit_one: u128,
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            serialize_with = "serialize_u128_as_string",
+            deserialize_with = "deserialize_u128_as_string"
+        )
+    )]
     pub sqrt_price_limit_two: u128,
     pub remaining_accounts_info: Option<RemainingAccountsInfo>,
 }
